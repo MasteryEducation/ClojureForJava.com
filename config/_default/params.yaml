@@ -92,16 +92,16 @@ hb:
   docs:
     #https://hugomods.com/docs/comment-engines/giscus/
     giscus:
-      repo: MasteryEducation/discussions
-      repo_id: R_kgDOM1jR8w
+      repo: MasteryEducation/ClojureForJava.com
+      repo_id: R_kgDOM7uc9w
       category: Announcements
-      category_id: DIC_kwDOM1jR884CisiJ
+      category_id: DIC_kwDOM7uc984CkY8R
       mapping: title
       strict_matching: true
       input_position: top
       reactions: true
       lazy_loading: true
-      emit_metadata: true
+
 
 
   # https://hbstack.dev/modules/components/content-panel/
