@@ -24,12 +24,19 @@ hb:
 
   full_width: true
   revision:
+    repo_service: github
+    repo_owner: MasteryEducation
+    repo_name: ClojureForJava.com
+    repo_branch: main
+    repo_subpath: ''
+    repo_contributors: true
+    repo_actions: true
+    icons: true
     created_at: false
     date_format: ':date_full'
     font_size: '.825rem'
-    icons: true
   header:
-    brand: Clojure for Java Developers
+    brand: Clojure For Java
     socials:
       # github: hbstack
       # twitter: razonyang
