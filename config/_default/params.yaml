@@ -1,7 +1,7 @@
 title_separator: '|'
-title_sections: false # when false, remove the sections from the title.
-# title_sections_depth: 1 # the depth of sections on the title.
-# title_sections_depth_dir: start # when start, the depth is counting from the root sections.
+title_sections: true # when false, remove the sections from the title.
+title_sections_depth: 1 # the depth of sections on the title.
+title_sections_depth_dir: start # when start, the depth is counting from the root sections.
 
 description: >
  Empower your Java skills with ClojureForJava.com. 
@@ -36,7 +36,7 @@ hb:
     date_format: ':date_full'
     font_size: '.825rem'
   header:
-    brand: Clojure For Java
+    brand: Clojure for Java Developers
     socials:
       # github: hbstack
       # twitter: razonyang
@@ -113,7 +113,7 @@ hb:
 
   # https://hbstack.dev/modules/components/content-panel/
   content_panel:
-    comments: false
+    comments: true
 
 seo:
   # https://hugomods.com/en/docs/seo/#favicons-module
@@ -130,10 +130,27 @@ pwa:
 
 # https://hugomods.com/search/configurations/
 search:
-  stall_threshold: 300
-  min_match_char_length: 2
-  case_sensitive: false
+  #distance: 25
+  #ignore_location: false
+  #location: 0
+  #threshold: 0.8
+  #stall_threshold: 300
+  #min_match_char_length: 50 # so that smaller subtitles should not match
+  #case_sensitive: false
   # shortcut_search: ["/"]
+  #key_weights.title: 1000
+  #key_weights.headings: 0.001
+  #key_weights.summary: 0.001
+  #key_weights.content: 0
+  index_content: false
+  #expand_results_meta: true
+  filter_taxonomies: false
+  filter_years: false
+  headings_end_level: 1
+  index_headings: false
+  index_summary: false
+  index_taxonomies: false
+
 
 mermaid:
   js_url: https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.esm.min.mjs
