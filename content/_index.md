@@ -1,10 +1,11 @@
 ---
 title: "Clojure for Java Developers"
 description: "Empower your Java skills with ClojureForJava.com. Explore our comprehensive 32-book series designed to seamlessly transition Java developers to Clojure, specifically tailored for enterprise and financial environments."
-homepage: true
-type: docs
 canonical: "https://clojureforjava.com"
 license: "© 2024 Tokenizer Inc. CC BY-NC-SA 4.0"
+draft: false
+layout: landing
+full_width: false
 ---
 
 # Clojure for Java Developers
