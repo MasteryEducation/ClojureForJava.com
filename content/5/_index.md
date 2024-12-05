@@ -1,14 +1,14 @@
 ---
-linkTitle: "Book 5: Clojure and NoSQL"
+#linkTitle: "Book 5: Clojure and NoSQL"
 title: "Clojure and NoSQL: Designing Scalable Data Solutions for Java Developers"
-nav_weight: 1
+nav_weight: 5
 type: docs
 menu:
   main:
-    parent: book
-    weight: 500000
+    parent: data
+    weight: 5
     params:
-      description: Designing Scalable Data Solutions for Java Developers
+      description:
       icon:
         vendor: bs
         name: book

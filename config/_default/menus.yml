@@ -1,18 +1,48 @@
 # https://raw.githubusercontent.com/hbstack/site/main/config/_default/menus.en.yml
 
 main:
-  - name: Books
-    identifier: book
+  - name: Foundations and Transition Guides
+    identifier: foundations
     weight: 1
     params:
       icon:
         vendor: bs
         name: book
-  - name: Tags
-    identifier: patterns
-    weight: 1000
+
+  - name: Functional Programming Principles and Design Patterns
+    identifier: functional
+    weight: 2
     params:
       icon:
-        name: boxes
-        #color: 'skyblue'
-        className: text-primary
+        vendor: bs
+        name: book
+
+  - name: Enterprise Application Development with Clojure
+    identifier: enterprise
+    weight: 3
+    params:
+      icon:
+        vendor: bs
+        name: book
+
+  - name: Data Management and Processing
+    identifier: data
+    weight: 5
+    params:
+      icon:
+        vendor: bs
+        name: book
+
+
+
+
+
+
+  # - name: Tags
+  #   identifier: patterns
+  #   weight: 1000
+  #   params:
+  #     icon:
+  #       name: boxes
+  #       #color: 'skyblue'
+  #       className: text-primary

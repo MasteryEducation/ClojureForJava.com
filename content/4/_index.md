@@ -1,14 +1,14 @@
 ---
-linkTitle: "Book 4: Clojure Frameworks and Libraries"
+#linkTitle: "Book 4: Clojure Frameworks and Libraries"
 title: "Clojure Frameworks and Libraries: Tools for Enterprise Integration"
-nav_weight: 1
+nav_weight: 4
 type: docs
 menu:
   main:
-    parent: book
-    weight: 400000
+    parent: enterprise
+    weight: 4
     params:
-      description: Tools for Enterprise Integration
+      description: 
       icon:
         vendor: bs
         name: book

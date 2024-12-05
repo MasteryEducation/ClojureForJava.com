@@ -1,14 +1,14 @@
 ---
-linkTitle: "Book 1: Clojure Foundations for Java Developers"
+linkTitle: "Clojure Foundations for Java Developers: A Comprehensive Introduction"
 title: "Clojure Foundations for Java Developers: A Comprehensive Introduction"
 nav_weight: 1
 type: docs
 menu:
   main:
-    parent: book
-    weight: 100000
+    parent: foundations
+    weight: 1
     params:
-      description: A Comprehensive Introduction
+      description: 
       icon:
         vendor: bs
         name: book

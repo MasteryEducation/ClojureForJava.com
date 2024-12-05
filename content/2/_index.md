@@ -1,14 +1,14 @@
 ---
-linkTitle: "Book 2: Intermediate Clojure for Java Engineers"
+#linkTitle: "Book 2: Intermediate Clojure for Java Engineers"
 title: "Intermediate Clojure for Java Engineers: Enhancing Your Functional Programming Skills"
-nav_weight: 1
+nav_weight: 2
 type: docs
 menu:
   main:
-    parent: book
-    weight: 200000
+    parent: foundations
+    weight: 2
     params:
-      description: Enhancing Your Functional Programming Skills
+      description: 
       icon:
         vendor: bs
         name: book
