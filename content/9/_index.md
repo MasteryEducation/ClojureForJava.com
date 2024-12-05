@@ -1,10 +1,11 @@
 ---
-#linkTitle: "Book 3: Clojure Design Patterns and Best Practices"
+#linkTitle: 
 title: "Mastering Functional Programming with Clojure"
 description: |
   Unlock the power of functional programming with Clojure. Learn to build efficient, scalable applications using immutable data structures, pure functions, and functional design patterns. Ideal for both new and seasoned developers.
 nav_weight: 9
 type: docs
+draft: true
 menu:
   main:
     parent: functional
