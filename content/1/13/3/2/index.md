@@ -1,303 +1,348 @@
 ---
-linkTitle: "13.3.2 Handling HTTP Requests"
-title: "Handling HTTP Requests in Clojure: A Comprehensive Guide for Java Developers"
-description: "Explore how to handle HTTP requests in Clojure using Ring and Compojure, create handlers for various endpoints, and return appropriate HTTP responses."
-categories:
-- Clojure
-- Web Development
-- Functional Programming
-tags:
-- Clojure
-- HTTP
-- Ring
-- Compojure
-- Web Applications
-date: 2024-10-25
-type: docs
-nav_weight: 1332000
 canonical: "https://clojureforjava.com/1/13/3/2"
+title: "Creating API Endpoints with Compojure: A Guide for Java Developers"
+description: "Learn how to define RESTful API endpoints using Compojure, handle HTTP methods, and map them to resource operations in Clojure."
+linkTitle: "13.3.2 Creating API Endpoints with Compojure"
+tags:
+- "Clojure"
+- "Compojure"
+- "RESTful APIs"
+- "Web Development"
+- "HTTP Methods"
+- "Java Interoperability"
+- "Functional Programming"
+- "Routing"
+date: 2024-11-25
+type: docs
+nav_weight: 133200
 license: "© 2024 Tokenizer Inc. CC BY-NC-SA 4.0"
 ---
 
-## 13.3.2 Handling HTTP Requests
+## 13.3.2 Creating API Endpoints with Compojure
 
-Handling HTTP requests is a fundamental aspect of building web applications. In Clojure, this is typically done using libraries such as Ring and Compojure, which provide a simple and elegant way to create web servers and define routes. This section will guide you through the process of setting up handlers for different endpoints and returning appropriate HTTP responses, with a focus on leveraging the power of Clojure's functional programming paradigm.
+As experienced Java developers, you are likely familiar with building RESTful APIs using frameworks like Spring Boot. In Clojure, Compojure is a popular routing library that allows you to define API endpoints in a concise and expressive manner. In this section, we'll explore how to create RESTful API endpoints using Compojure, handle various HTTP methods, and utilize route and query parameters effectively.
 
-### Introduction to Ring and Compojure
+### Introduction to Compojure
 
-Ring is a Clojure library that abstracts the HTTP protocol and provides a simple interface for building web applications. It follows a middleware pattern, allowing you to compose your application from smaller, reusable components. Compojure is a routing library built on top of Ring, which makes it easy to define routes and handle requests.
+Compojure is a routing library for Clojure that provides a simple and intuitive way to define routes for web applications. It is built on top of Ring, a Clojure web application library that provides a common interface for handling HTTP requests and responses. Compojure allows you to define routes using a DSL (Domain-Specific Language) that is both expressive and concise.
 
-#### Setting Up Your Project
+#### Key Concepts
 
-Before diving into handling HTTP requests, let's set up a basic Clojure project using Leiningen, a popular build tool for Clojure.
+- **Routes**: Define the paths and HTTP methods that your application will respond to.
+- **Handlers**: Functions that process incoming requests and generate responses.
+- **Middleware**: Functions that wrap handlers to add additional functionality, such as logging or authentication.
 
-1. **Create a New Project:**
+### Setting Up a Basic Compojure Application
 
-   ```bash
-   lein new app my-web-app
-   ```
+Before we dive into creating API endpoints, let's set up a basic Compojure application. We'll start by creating a new Clojure project using Leiningen, a popular build tool for Clojure.
 
-2. **Add Dependencies:**
+```bash
+lein new compojure-api-example
+```
 
-   Open the `project.clj` file and add Ring and Compojure to the dependencies:
-
-   ```clojure
-   :dependencies [[org.clojure/clojure "1.10.3"]
-                  [ring/ring-core "1.9.0"]
-                  [ring/ring-jetty-adapter "1.9.0"]
-                  [compojure "1.6.2"]]
-   ```
-
-3. **Create a Basic Server:**
-
-   In the `src/my_web_app/core.clj` file, set up a basic Ring server:
-
-   ```clojure
-   (ns my-web-app.core
-     (:require [ring.adapter.jetty :refer [run-jetty]]
-               [compojure.core :refer [defroutes GET POST]]
-               [ring.util.response :refer [response]]))
-
-   (defn handler [request]
-     (response "Hello, World!"))
-
-   (defroutes app-routes
-     (GET "/" [] handler))
-
-   (defn -main [& args]
-     (run-jetty app-routes {:port 3000 :join? false}))
-   ```
-
-   This code sets up a simple server that responds with "Hello, World!" when accessed at the root URL.
-
-### Creating Handlers for Different Endpoints
-
-In a real-world application, you'll need to handle various types of requests, such as GET, POST, PUT, and DELETE. Compojure makes it easy to define routes and associate them with handler functions.
-
-#### Defining Routes
-
-Routes in Compojure are defined using macros such as `GET`, `POST`, `PUT`, and `DELETE`. Each macro takes a path and a handler function.
+Navigate to the project directory and add Compojure and Ring dependencies to your `project.clj` file:
 
 ```clojure
+(defproject compojure-api-example "0.1.0-SNAPSHOT"
+  :dependencies [[org.clojure/clojure "1.10.3"]
+                 [compojure "1.6.2"]
+                 [ring/ring-core "1.9.3"]
+                 [ring/ring-jetty-adapter "1.9.3"]])
+```
+
+Now, let's create a basic Compojure application. Open `src/compojure_api_example/core.clj` and add the following code:
+
+```clojure
+(ns compojure-api-example.core
+  (:require [compojure.core :refer :all]
+            [compojure.route :as route]
+            [ring.adapter.jetty :refer [run-jetty]]))
+
 (defroutes app-routes
-  (GET "/" [] (response "Welcome to the home page!"))
-  (GET "/about" [] (response "About us"))
-  (POST "/submit" req (handle-submit req))
-  (PUT "/update" req (handle-update req))
-  (DELETE "/delete" req (handle-delete req)))
+  (GET "/" [] "Welcome to Compojure!")
+  (route/not-found "Page not found"))
+
+(defn -main []
+  (run-jetty app-routes {:port 3000}))
 ```
 
-#### Creating Handler Functions
+This code defines a simple Compojure application with a single route that responds to GET requests at the root path (`/`). The `run-jetty` function starts a Jetty server on port 3000.
 
-Handler functions take a request map as an argument and return a response map. The request map contains information about the HTTP request, such as headers, parameters, and the request body.
+### Handling HTTP Methods
+
+In RESTful APIs, different HTTP methods are used to perform various operations on resources. Compojure provides a straightforward way to handle these methods.
+
+#### GET Method
+
+The GET method is used to retrieve resources. Let's define a route that responds to GET requests and returns a list of items.
 
 ```clojure
-(defn handle-submit [req]
-  (let [params (:params req)]
-    (response (str "Received submission: " params))))
-
-(defn handle-update [req]
-  (response "Update successful"))
-
-(defn handle-delete [req]
-  (response "Resource deleted"))
+(GET "/items" []
+  {:status 200
+   :headers {"Content-Type" "application/json"}
+   :body (json/write-str [{:id 1 :name "Item 1"} {:id 2 :name "Item 2"}])})
 ```
 
-### Returning Appropriate HTTP Responses
+#### POST Method
 
-In Clojure, HTTP responses are typically constructed using the `ring.util.response` namespace, which provides functions for creating response maps.
-
-#### Basic Response
-
-A basic response can be created using the `response` function, which takes a body and returns a response map with a 200 status code.
+The POST method is used to create new resources. We'll define a route that accepts JSON data and creates a new item.
 
 ```clojure
-(response "This is a basic response")
+(POST "/items" {body :body}
+  (let [item (json/read-str (slurp body) :key-fn keyword)]
+    {:status 201
+     :headers {"Content-Type" "application/json"}
+     :body (json/write-str (assoc item :id (rand-int 1000)))}))
 ```
 
-#### Customizing Status Codes
+#### PUT Method
 
-You can customize the status code of a response using the `status` function.
+The PUT method is used to update existing resources. Here's how you can define a route to update an item.
 
 ```clojure
-(status (response "Resource not found") 404)
+(PUT "/items/:id" [id :as {body :body}]
+  (let [updated-item (json/read-str (slurp body) :key-fn keyword)]
+    {:status 200
+     :headers {"Content-Type" "application/json"}
+     :body (json/write-str (assoc updated-item :id id))}))
 ```
 
-#### Adding Headers
+#### DELETE Method
 
-Headers can be added to a response using the `header` function.
+The DELETE method is used to remove resources. Define a route to delete an item by its ID.
 
 ```clojure
-(header (response "Hello, World!") "Content-Type" "text/plain")
+(DELETE "/items/:id" [id]
+  {:status 204})
 ```
 
-#### Returning JSON Responses
+### Using Route Parameters
 
-To return JSON responses, you can use the `cheshire` library to encode data as JSON.
+Route parameters allow you to capture dynamic parts of the URL. In Compojure, you can define route parameters using a colon (`:`) followed by the parameter name.
 
-1. **Add Cheshire to Dependencies:**
+```clojure
+(GET "/items/:id" [id]
+  {:status 200
+   :headers {"Content-Type" "application/json"}
+   :body (json/write-str {:id id :name (str "Item " id)})})
+```
 
-   ```clojure
-   [cheshire "5.10.0"]
-   ```
+In this example, the `:id` parameter captures the item ID from the URL, which can then be used in the handler function.
 
-2. **Encode Data as JSON:**
+### Handling Query Parameters
 
-   ```clojure
-   (require '[cheshire.core :as json])
+Query parameters are used to pass additional data in the URL. In Compojure, you can access query parameters using the `:query-params` key in the request map.
 
-   (defn json-response [data]
-     (-> (response (json/generate-string data))
-         (header "Content-Type" "application/json")))
+```clojure
+(GET "/search" {params :query-params}
+  (let [query (get params "q")]
+    {:status 200
+     :headers {"Content-Type" "application/json"}
+     :body (json/write-str {:query query :results []})}))
+```
 
-   (GET "/data" [] (json-response {:name "Clojure" :type "Language"}))
-   ```
+### Integrating with Middleware
 
-### Middleware and Interceptors
-
-Middleware functions in Ring are used to process requests and responses. They can be used for tasks such as logging, authentication, and modifying request/response data.
-
-#### Example: Logging Middleware
+Middleware functions wrap handlers to provide additional functionality, such as logging, authentication, or error handling. Let's add a simple logging middleware to our application.
 
 ```clojure
 (defn wrap-logging [handler]
   (fn [request]
-    (println "Request received:" request)
-    (let [response (handler request)]
-      (println "Response sent:" response)
-      response)))
+    (println "Request:" request)
+    (handler request)))
 
 (def app
   (-> app-routes
       wrap-logging))
 ```
 
-### Best Practices for Handling HTTP Requests
+### Complete Example
 
-1. **Use Middleware for Cross-Cutting Concerns:**
+Here's a complete example of a Compojure application with multiple routes and middleware integration.
 
-   Middleware is ideal for handling concerns that affect multiple endpoints, such as authentication and logging.
+```clojure
+(ns compojure-api-example.core
+  (:require [compojure.core :refer :all]
+            [compojure.route :as route]
+            [ring.adapter.jetty :refer [run-jetty]]
+            [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
+            [clojure.data.json :as json]))
 
-2. **Keep Handlers Simple:**
+(defn wrap-logging [handler]
+  (fn [request]
+    (println "Request:" request)
+    (handler request)))
 
-   Handlers should focus on processing requests and generating responses. Business logic should be extracted into separate functions or services.
+(defroutes app-routes
+  (GET "/" [] "Welcome to Compojure!")
+  (GET "/items" []
+    {:status 200
+     :headers {"Content-Type" "application/json"}
+     :body (json/write-str [{:id 1 :name "Item 1"} {:id 2 :name "Item 2"}])})
+  (POST "/items" {body :body}
+    (let [item (json/read-str (slurp body) :key-fn keyword)]
+      {:status 201
+       :headers {"Content-Type" "application/json"}
+       :body (json/write-str (assoc item :id (rand-int 1000)))}))
+  (PUT "/items/:id" [id :as {body :body}]
+    (let [updated-item (json/read-str (slurp body) :key-fn keyword)]
+      {:status 200
+       :headers {"Content-Type" "application/json"}
+       :body (json/write-str (assoc updated-item :id id))}))
+  (DELETE "/items/:id" [id]
+    {:status 204})
+  (route/not-found "Page not found"))
 
-3. **Return Consistent Responses:**
+(def app
+  (-> app-routes
+      wrap-logging
+      wrap-json-body
+      wrap-json-response))
 
-   Ensure that your API returns consistent responses, with appropriate status codes and error messages.
+(defn -main []
+  (run-jetty app {:port 3000}))
+```
 
-4. **Use JSON for Data Interchange:**
+### Try It Yourself
 
-   JSON is a widely-used format for data interchange. Use libraries like Cheshire to serialize and deserialize JSON data.
+Experiment with the following modifications to deepen your understanding:
 
-5. **Handle Errors Gracefully:**
+- Add a new route that handles PATCH requests to partially update an item.
+- Implement authentication middleware that checks for a valid API key in the request headers.
+- Extend the logging middleware to log the response status and headers.
 
-   Use middleware to catch exceptions and return meaningful error responses.
+### Diagram: Compojure Routing Flow
 
-### Common Pitfalls and Optimization Tips
+Below is a diagram illustrating the flow of a request through Compojure routes and middleware.
 
-- **Avoid Blocking Operations:** Use asynchronous processing for long-running tasks to prevent blocking the server.
-- **Optimize Middleware Order:** The order of middleware can affect performance. Place frequently-used middleware early in the chain.
-- **Profile and Monitor Performance:** Use tools like YourKit or VisualVM to profile your application and identify bottlenecks.
+```mermaid
+graph TD;
+    A[Incoming Request] -->|Route Matching| B[Compojure Routes];
+    B -->|Middleware Processing| C[Handler Function];
+    C -->|Generate Response| D[Outgoing Response];
+    subgraph Middleware
+        E[Logging]
+        F[Authentication]
+        G[JSON Parsing]
+    end
+    B --> E;
+    E --> F;
+    F --> G;
+    G --> C;
+```
 
-### Advanced Topics
+*Diagram: The flow of a request through Compojure routes and middleware layers.*
 
-For more advanced applications, consider using libraries like Pedestal or Luminus, which provide additional features and abstractions for building web applications.
+### Key Takeaways
 
-### Conclusion
+- **Compojure** provides a DSL for defining routes in a concise and expressive manner.
+- **HTTP Methods**: Compojure supports handling various HTTP methods like GET, POST, PUT, and DELETE.
+- **Route Parameters**: Capture dynamic parts of the URL using route parameters.
+- **Query Parameters**: Access additional data passed in the URL using query parameters.
+- **Middleware**: Enhance your application with additional functionality using middleware.
 
-Handling HTTP requests in Clojure is a powerful and flexible process, thanks to libraries like Ring and Compojure. By understanding how to create handlers, define routes, and return appropriate responses, you can build robust and scalable web applications. Remember to leverage middleware for cross-cutting concerns and keep your handlers focused on processing requests.
+### Further Reading
 
-## Quiz Time!
+- [Compojure GitHub Repository](https://github.com/weavejester/compojure)
+- [Ring GitHub Repository](https://github.com/ring-clojure/ring)
+- [Official Clojure Documentation](https://clojure.org/reference/documentation)
+
+### Exercises
+
+1. **Create a new route** that handles PATCH requests to update specific fields of an item.
+2. **Implement a middleware** that checks for a valid API key in the request headers and returns a 401 Unauthorized response if the key is missing or invalid.
+3. **Extend the logging middleware** to log the response status and headers in addition to the request details.
+
+## Quiz: Mastering Compojure for RESTful API Development
 
 {{< quizdown >}}
 
-### What is the primary purpose of the Ring library in Clojure?
+### What is Compojure primarily used for in Clojure web applications?
 
-- [x] To provide a simple interface for building web applications
+- [x] Defining routes
+- [ ] Handling database operations
+- [ ] Managing application state
+- [ ] Performing authentication
+
+> **Explanation:** Compojure is a routing library used to define routes in Clojure web applications.
+
+### Which HTTP method is typically used to retrieve resources in a RESTful API?
+
+- [x] GET
+- [ ] POST
+- [ ] PUT
+- [ ] DELETE
+
+> **Explanation:** The GET method is used to retrieve resources in a RESTful API.
+
+### How do you define a route parameter in Compojure?
+
+- [x] Using a colon followed by the parameter name (e.g., `:id`)
+- [ ] Using curly braces (e.g., `{id}`)
+- [ ] Using square brackets (e.g., `[id]`)
+- [ ] Using angle brackets (e.g., `<id>`)
+
+> **Explanation:** Route parameters in Compojure are defined using a colon followed by the parameter name.
+
+### What is the purpose of middleware in a Compojure application?
+
+- [x] To add additional functionality to handlers
+- [ ] To define routes
 - [ ] To manage database connections
-- [ ] To handle file I/O operations
-- [ ] To perform mathematical computations
+- [ ] To compile Clojure code
 
-> **Explanation:** Ring provides a simple interface for building web applications by abstracting the HTTP protocol.
+> **Explanation:** Middleware functions wrap handlers to provide additional functionality, such as logging or authentication.
 
-### Which library is commonly used with Ring for routing in Clojure?
+### Which library does Compojure build upon to handle HTTP requests and responses?
 
-- [x] Compojure
-- [ ] Cheshire
-- [ ] Luminus
-- [ ] Pedestal
+- [x] Ring
+- [ ] Jetty
+- [ ] Leiningen
+- [ ] ClojureScript
 
-> **Explanation:** Compojure is a routing library commonly used with Ring to define routes and handle requests.
+> **Explanation:** Compojure is built on top of Ring, which provides a common interface for handling HTTP requests and responses.
 
-### How do you define a GET route in Compojure?
+### What is the typical response status code for a successful DELETE operation?
 
-- [x] (GET "/" [] (response "Hello"))
-- [ ] (POST "/" [] (response "Hello"))
-- [ ] (PUT "/" [] (response "Hello"))
-- [ ] (DELETE "/" [] (response "Hello"))
+- [x] 204
+- [ ] 200
+- [ ] 201
+- [ ] 404
 
-> **Explanation:** The `GET` macro is used in Compojure to define a GET route.
+> **Explanation:** A successful DELETE operation typically returns a 204 No Content status code.
 
-### What function is used to create a basic HTTP response in Ring?
+### How can you access query parameters in a Compojure route?
 
-- [x] response
-- [ ] request
-- [ ] handler
-- [ ] route
+- [x] Using the `:query-params` key in the request map
+- [ ] Using the `:params` key in the request map
+- [ ] Using the `:headers` key in the request map
+- [ ] Using the `:body` key in the request map
 
-> **Explanation:** The `response` function is used to create a basic HTTP response in Ring.
+> **Explanation:** Query parameters can be accessed using the `:query-params` key in the request map.
 
-### How can you add a custom header to a response in Ring?
+### What is the purpose of the `wrap-json-body` middleware?
 
-- [x] (header (response "Hello") "Content-Type" "text/plain")
-- [ ] (add-header (response "Hello") "Content-Type" "text/plain")
-- [ ] (set-header (response "Hello") "Content-Type" "text/plain")
-- [ ] (response-header (response "Hello") "Content-Type" "text/plain")
+- [x] To parse JSON request bodies
+- [ ] To log request details
+- [ ] To handle authentication
+- [ ] To manage sessions
 
-> **Explanation:** The `header` function is used to add custom headers to a response in Ring.
+> **Explanation:** The `wrap-json-body` middleware is used to parse JSON request bodies.
 
-### Which library is used to encode data as JSON in Clojure?
+### Which of the following is NOT a valid HTTP method in a RESTful API?
 
-- [x] Cheshire
-- [ ] Compojure
-- [ ] Ring
-- [ ] Luminus
+- [ ] GET
+- [ ] POST
+- [ ] PUT
+- [x] FETCH
 
-> **Explanation:** Cheshire is a library used to encode and decode JSON data in Clojure.
+> **Explanation:** FETCH is not a valid HTTP method in a RESTful API. The common methods are GET, POST, PUT, and DELETE.
 
-### What is the purpose of middleware in Ring?
+### True or False: Compojure can only be used with the Jetty server.
 
-- [x] To process requests and responses
-- [ ] To manage database transactions
-- [ ] To handle file uploads
-- [ ] To perform data validation
+- [ ] True
+- [x] False
 
-> **Explanation:** Middleware in Ring is used to process requests and responses, often for tasks like logging or authentication.
-
-### How do you define a POST route in Compojure?
-
-- [x] (POST "/submit" req (handle-submit req))
-- [ ] (GET "/submit" req (handle-submit req))
-- [ ] (PUT "/submit" req (handle-submit req))
-- [ ] (DELETE "/submit" req (handle-submit req))
-
-> **Explanation:** The `POST` macro is used in Compojure to define a POST route.
-
-### What is a common format for data interchange in web applications?
-
-- [x] JSON
-- [ ] XML
-- [ ] CSV
-- [ ] YAML
-
-> **Explanation:** JSON is a common format for data interchange in web applications due to its simplicity and wide support.
-
-### True or False: Middleware can be used to catch exceptions and return error responses.
-
-- [x] True
-- [ ] False
-
-> **Explanation:** Middleware can be used to catch exceptions and return meaningful error responses, improving error handling in web applications.
+> **Explanation:** False. Compojure can be used with any Ring-compatible server, not just Jetty.
 
 {{< /quizdown >}}

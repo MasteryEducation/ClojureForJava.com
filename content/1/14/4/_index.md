@@ -1,7 +1,5 @@
 ---
-title: "14.4 Concurrency Models"
+title: "14.4 Using Datomic and Other Datastores"
 type: docs
 nav_weight: 144000
-canonical: "https://clojureforjava.com/1/14/4"
-license: "© 2024 Tokenizer Inc. CC BY-NC-SA 4.0"
 ---

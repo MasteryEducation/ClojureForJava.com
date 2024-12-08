@@ -1,271 +1,404 @@
 ---
-linkTitle: "13.3.1 Introduction to Ring and Compojure"
-title: "Introduction to Ring and Compojure: Building Web Applications in Clojure"
-description: "Explore how to set up a web server using Ring and define routes with Compojure in Clojure, tailored for Java developers transitioning to functional programming."
-categories:
-- Clojure
-- Web Development
-- Functional Programming
-tags:
-- Clojure
-- Ring
-- Compojure
-- Web Server
-- Routing
-date: 2024-10-25
-type: docs
-nav_weight: 1331000
 canonical: "https://clojureforjava.com/1/13/3/1"
+title: "RESTful API Design Principles: A Guide for Clojure Developers"
+description: "Explore the core principles of RESTful API design, including statelessness, resource identification, and the use of HTTP methods and status codes, tailored for Clojure developers transitioning from Java."
+linkTitle: "13.3.1 Principles of RESTful API Design"
+tags:
+- "Clojure"
+- "RESTful API"
+- "Web Development"
+- "HTTP Methods"
+- "Statelessness"
+- "Resource Identification"
+- "API Design"
+- "Java Interoperability"
+date: 2024-11-25
+type: docs
+nav_weight: 133100
 license: "© 2024 Tokenizer Inc. CC BY-NC-SA 4.0"
 ---
 
-## 13.3.1 Introduction to Ring and Compojure
+## 13.3.1 Principles of RESTful API Design
 
-In the realm of web development, Clojure offers a robust and flexible ecosystem that leverages the power of functional programming. Two pivotal tools in this ecosystem are Ring and Compojure. Ring provides the foundational layer for building web applications, while Compojure offers a concise and expressive way to define routes. This section will guide you through setting up a web server using Ring and defining routes with Compojure, providing you with the skills to create dynamic web applications in Clojure.
+As experienced Java developers transitioning to Clojure, understanding the principles of RESTful API design is crucial for building robust, scalable web services. REST (Representational State Transfer) is an architectural style that leverages the stateless nature of HTTP, providing a uniform interface for interacting with resources. In this section, we'll explore the core principles of RESTful API design, including statelessness, resource identification, standard HTTP methods, and the use of appropriate status codes. We'll also provide Clojure code examples to illustrate these concepts and compare them with Java implementations where applicable.
 
-### Understanding Ring: The Foundation of Clojure Web Applications
+### Understanding REST: A Brief Overview
 
-Ring is a Clojure library that abstracts the HTTP protocol, providing a simple yet powerful interface for web applications. It is inspired by Ruby's Rack and Python's WSGI, focusing on middleware and handlers to process HTTP requests and responses.
+REST is an architectural style defined by Roy Fielding in his doctoral dissertation. It emphasizes a stateless, client-server communication model, where resources are identified by URIs (Uniform Resource Identifiers). RESTful APIs are designed to be simple, scalable, and easily maintainable, making them a popular choice for web services.
 
-#### Key Concepts of Ring
+#### Key Principles of REST
 
-1. **Handlers**: A handler is a Clojure function that takes a request map and returns a response map. This simplicity allows developers to focus on the logic of handling requests without getting bogged down by the intricacies of HTTP.
+1. **Statelessness**: Each request from a client to a server must contain all the information needed to understand and process the request. The server does not store any client context between requests, which simplifies server design and improves scalability.
 
-2. **Middleware**: Middleware functions wrap handlers to modify requests or responses, enabling functionalities like logging, session management, and authentication.
+2. **Resource Identification**: Resources are identified by URIs. Each resource should have a unique URI, and the URI should be descriptive of the resource it represents.
 
-3. **Request and Response Maps**: Ring uses Clojure maps to represent HTTP requests and responses, making it easy to manipulate data using Clojure's rich set of functions.
+3. **Uniform Interface**: RESTful APIs provide a uniform interface for interacting with resources, typically using standard HTTP methods such as GET, POST, PUT, DELETE, etc.
 
-#### Setting Up a Basic Ring Server
+4. **Representation**: Resources can have multiple representations, such as JSON, XML, or HTML. The client specifies the desired representation using the `Accept` header.
 
-To get started with Ring, you'll need to set up a basic web server. Let's walk through the process:
+5. **Stateless Communication**: Communication between client and server is stateless, meaning each request from the client must contain all the information needed to understand and process the request.
 
-1. **Create a New Clojure Project**: Use Leiningen, a popular build tool for Clojure, to create a new project.
+6. **Cacheability**: Responses from the server should be cacheable to improve performance and reduce server load.
 
-   ```bash
-   lein new app my-web-app
-   ```
+7. **Layered System**: REST allows for a layered system architecture, where intermediaries such as proxies and gateways can be used to improve scalability and performance.
 
-2. **Add Ring Dependency**: Open the `project.clj` file and add Ring as a dependency.
+8. **Code on Demand (Optional)**: Servers can extend client functionality by transferring executable code, such as JavaScript.
 
-   ```clojure
-   :dependencies [[org.clojure/clojure "1.10.3"]
-                  [ring/ring-core "1.9.0"]
-                  [ring/ring-jetty-adapter "1.9.0"]]
-   ```
+### Statelessness in REST
 
-3. **Write a Simple Handler**: Create a handler function that returns a simple response.
+Statelessness is a fundamental principle of REST that simplifies server design and improves scalability. In a stateless system, each request from a client to a server must contain all the information needed to understand and process the request. This means that the server does not store any client context between requests.
 
-   ```clojure
-   (ns my-web-app.core
-     (:require [ring.adapter.jetty :refer [run-jetty]]))
+#### Statelessness in Clojure
 
-   (defn handler [request]
-     {:status 200
-      :headers {"Content-Type" "text/html"}
-      :body "Hello, World!"})
-
-   (defn -main []
-     (run-jetty handler {:port 3000}))
-   ```
-
-4. **Run the Server**: Start the server using Leiningen.
-
-   ```bash
-   lein run
-   ```
-
-   Your server should now be running on `http://localhost:3000`, displaying "Hello, World!" in the browser.
-
-### Introducing Compojure: Simplifying Routing in Clojure
-
-While Ring provides the core functionality for handling HTTP requests, Compojure builds on top of it to offer a more intuitive way to define routes. Compojure is a routing library that allows you to map URL patterns to handler functions using a concise syntax.
-
-#### Key Features of Compojure
-
-1. **Route Definitions**: Compojure uses macros to define routes, making the code both readable and expressive.
-
-2. **Route Composition**: Routes can be composed using Clojure's functional capabilities, allowing for modular and maintainable code.
-
-3. **Integration with Ring**: Compojure seamlessly integrates with Ring, enabling the use of middleware and other Ring features.
-
-#### Setting Up Compojure
-
-To integrate Compojure into your project, follow these steps:
-
-1. **Add Compojure Dependency**: Update your `project.clj` file to include Compojure.
-
-   ```clojure
-   :dependencies [[org.clojure/clojure "1.10.3"]
-                  [ring/ring-core "1.9.0"]
-                  [ring/ring-jetty-adapter "1.9.0"]
-                  [compojure "1.6.2"]]
-   ```
-
-2. **Define Routes**: Use Compojure's routing macros to define routes in your application.
-
-   ```clojure
-   (ns my-web-app.core
-     (:require [compojure.core :refer :all]
-               [compojure.route :as route]
-               [ring.adapter.jetty :refer [run-jetty]]))
-
-   (defroutes app-routes
-     (GET "/" [] "Welcome to my web app!")
-     (GET "/hello" [] "Hello, World!")
-     (route/not-found "Page not found"))
-
-   (defn -main []
-     (run-jetty app-routes {:port 3000}))
-   ```
-
-3. **Test Your Routes**: Restart your server and test the routes by visiting `http://localhost:3000` and `http://localhost:3000/hello`.
-
-### Advanced Routing and Middleware with Compojure
-
-Compojure's power lies in its ability to handle complex routing scenarios and integrate with Ring middleware. Let's explore some advanced features.
-
-#### Nested Routes
-
-Compojure allows you to nest routes, which is useful for organizing routes logically.
+In Clojure, we can leverage immutable data structures and functional programming paradigms to build stateless services. Let's look at a simple example of a stateless Clojure function that processes an HTTP request:
 
 ```clojure
-(defroutes user-routes
-  (GET "/profile" [] "User Profile")
-  (GET "/settings" [] "User Settings"))
+(ns myapp.api
+  (:require [ring.util.response :refer [response]]))
+
+(defn process-request [request]
+  ;; Extract necessary information from the request
+  (let [user-id (get-in request [:params :user-id])]
+    ;; Process the request and return a response
+    (response {:message (str "Hello, user " user-id)})))
+```
+
+In this example, the `process-request` function takes an HTTP request as input, extracts the `user-id` parameter, and returns a response. The function does not rely on any external state, making it stateless.
+
+#### Statelessness in Java
+
+In Java, achieving statelessness often involves using frameworks like Spring Boot, which provide abstractions for handling HTTP requests. Here's a similar example in Java:
+
+```java
+@RestController
+public class ApiController {
+
+    @GetMapping("/hello")
+    public ResponseEntity<String> processRequest(@RequestParam String userId) {
+        // Process the request and return a response
+        return ResponseEntity.ok("Hello, user " + userId);
+    }
+}
+```
+
+In this Java example, the `processRequest` method is a stateless endpoint that processes an HTTP request and returns a response.
+
+### Resource Identification
+
+In REST, resources are identified by URIs. Each resource should have a unique URI, and the URI should be descriptive of the resource it represents. This allows clients to interact with resources using a consistent and predictable interface.
+
+#### Resource Identification in Clojure
+
+In Clojure, we can define routes using libraries like Compojure, which provide a DSL (Domain-Specific Language) for defining routes. Here's an example:
+
+```clojure
+(ns myapp.routes
+  (:require [compojure.core :refer :all]
+            [ring.util.response :refer [response]]))
 
 (defroutes app-routes
-  (GET "/" [] "Welcome to my web app!")
-  (context "/user" [] user-routes)
-  (route/not-found "Page not found"))
+  (GET "/users/:id" [id]
+    (response {:user-id id})))
 ```
 
-#### Using Middleware
+In this example, we define a route for accessing a user resource by ID. The URI `/users/:id` identifies the user resource, and the `id` parameter is extracted from the URI.
 
-Middleware functions can be applied to routes to add functionality such as logging or authentication.
+#### Resource Identification in Java
+
+In Java, resource identification is often handled using annotations provided by frameworks like Spring Boot. Here's a similar example:
+
+```java
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUser(@PathVariable String id) {
+        // Retrieve and return the user resource
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
+    }
+}
+```
+
+In this Java example, the `@RequestMapping` and `@GetMapping` annotations define the URI for accessing a user resource by ID.
+
+### Standard HTTP Methods
+
+RESTful APIs use standard HTTP methods to perform operations on resources. The most common methods are:
+
+- **GET**: Retrieve a representation of a resource.
+- **POST**: Create a new resource.
+- **PUT**: Update an existing resource.
+- **DELETE**: Delete a resource.
+
+#### HTTP Methods in Clojure
+
+In Clojure, we can use libraries like Compojure to define routes that handle different HTTP methods. Here's an example:
 
 ```clojure
-(defn wrap-logging [handler]
-  (fn [request]
-    (println "Request received:" request)
-    (handler request)))
+(ns myapp.routes
+  (:require [compojure.core :refer :all]
+            [ring.util.response :refer [response]]))
 
-(def app
-  (-> app-routes
-      (wrap-logging)))
+(defroutes app-routes
+  (GET "/users/:id" [id]
+    (response {:user-id id}))
+  (POST "/users" [user]
+    (response {:message "User created"}))
+  (PUT "/users/:id" [id user]
+    (response {:message "User updated"}))
+  (DELETE "/users/:id" [id]
+    (response {:message "User deleted"})))
 ```
 
-### Best Practices and Optimization Tips
+In this example, we define routes for handling GET, POST, PUT, and DELETE requests for a user resource.
 
-1. **Modularize Your Code**: Break down your application into smaller, reusable components. Use namespaces to organize routes and middleware.
+#### HTTP Methods in Java
 
-2. **Leverage Middleware**: Utilize middleware for cross-cutting concerns such as security, logging, and error handling.
+In Java, HTTP methods are often handled using annotations provided by frameworks like Spring Boot. Here's a similar example:
 
-3. **Optimize Performance**: Profile your application to identify bottlenecks. Consider using caching strategies to improve response times.
+```java
+@RestController
+@RequestMapping("/users")
+public class UserController {
 
-4. **Test Extensively**: Write unit tests for your routes and middleware to ensure reliability and maintainability.
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUser(@PathVariable String id) {
+        // Retrieve and return the user resource
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
+    }
 
-### Common Pitfalls
+    @PostMapping
+    public ResponseEntity<String> createUser(@RequestBody User user) {
+        // Create a new user resource
+        userService.createUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body("User created");
+    }
 
-1. **Ignoring Middleware**: Failing to use middleware can lead to duplicated code and increased complexity.
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable String id, @RequestBody User user) {
+        // Update the user resource
+        userService.updateUser(id, user);
+        return ResponseEntity.ok("User updated");
+    }
 
-2. **Overcomplicating Routes**: Keep your route definitions simple and intuitive. Avoid deeply nested routes unless necessary.
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable String id) {
+        // Delete the user resource
+        userService.deleteUser(id);
+        return ResponseEntity.ok("User deleted");
+    }
+}
+```
 
-3. **Neglecting Error Handling**: Implement comprehensive error handling to provide meaningful feedback to users and developers.
+In this Java example, the `@GetMapping`, `@PostMapping`, `@PutMapping`, and `@DeleteMapping` annotations define the HTTP methods for interacting with a user resource.
 
-### Conclusion
+### Use of Appropriate Status Codes
 
-Ring and Compojure provide a powerful combination for building web applications in Clojure. By understanding the core concepts and leveraging the strengths of each library, you can create scalable and maintainable web applications. As you continue to explore Clojure's web development ecosystem, you'll discover a wealth of tools and libraries that further enhance your capabilities.
+RESTful APIs should use appropriate HTTP status codes to indicate the outcome of a request. Common status codes include:
 
-## Quiz Time!
+- **200 OK**: The request was successful.
+- **201 Created**: A new resource was created.
+- **204 No Content**: The request was successful, but there is no content to return.
+- **400 Bad Request**: The request was invalid.
+- **404 Not Found**: The requested resource was not found.
+- **500 Internal Server Error**: An error occurred on the server.
+
+#### Status Codes in Clojure
+
+In Clojure, we can use libraries like Ring to set the status code of a response. Here's an example:
+
+```clojure
+(ns myapp.api
+  (:require [ring.util.response :refer [response status]]))
+
+(defn create-user [request]
+  ;; Create a new user resource
+  (status (response {:message "User created"}) 201))
+```
+
+In this example, the `status` function is used to set the status code of the response to `201 Created`.
+
+#### Status Codes in Java
+
+In Java, status codes are often set using the `ResponseEntity` class provided by frameworks like Spring Boot. Here's a similar example:
+
+```java
+@PostMapping
+public ResponseEntity<String> createUser(@RequestBody User user) {
+    // Create a new user resource
+    userService.createUser(user);
+    return ResponseEntity.status(HttpStatus.CREATED).body("User created");
+}
+```
+
+In this Java example, the `ResponseEntity.status` method is used to set the status code of the response to `201 Created`.
+
+### Designing Clean, Intuitive APIs
+
+Designing clean, intuitive APIs is essential for providing a good developer experience. Here are some best practices for designing RESTful APIs:
+
+1. **Use Consistent Naming Conventions**: Use consistent naming conventions for URIs, parameters, and fields. This makes the API easier to understand and use.
+
+2. **Provide Clear Documentation**: Provide clear, comprehensive documentation for your API. This helps developers understand how to use the API and reduces the learning curve.
+
+3. **Version Your API**: Use versioning to manage changes to your API. This allows you to introduce new features and improvements without breaking existing clients.
+
+4. **Use Hypermedia**: Use hypermedia to provide links to related resources. This allows clients to discover and navigate the API more easily.
+
+5. **Handle Errors Gracefully**: Provide meaningful error messages and use appropriate status codes to indicate errors. This helps developers diagnose and fix issues more easily.
+
+6. **Optimize for Performance**: Use caching, pagination, and other techniques to optimize the performance of your API. This improves the user experience and reduces server load.
+
+### Try It Yourself
+
+Now that we've explored the principles of RESTful API design, let's apply these concepts in practice. Try modifying the Clojure code examples to add new routes or change the response format. Experiment with different HTTP methods and status codes to see how they affect the behavior of the API.
+
+### Diagrams and Visualizations
+
+To enhance your understanding of RESTful API design, let's look at a few diagrams that illustrate key concepts.
+
+#### Resource Identification Diagram
+
+```mermaid
+graph TD;
+    A[Client] -->|GET /users/1| B[Server];
+    B -->|200 OK| A;
+    B -->|User Data| A;
+```
+
+*Diagram 1: This diagram illustrates the process of resource identification in a RESTful API. The client sends a GET request to the server to retrieve a user resource identified by the URI `/users/1`.*
+
+#### HTTP Methods Diagram
+
+```mermaid
+graph TD;
+    A[Client] -->|GET /users/1| B[Server];
+    A -->|POST /users| B;
+    A -->|PUT /users/1| B;
+    A -->|DELETE /users/1| B;
+```
+
+*Diagram 2: This diagram shows the use of standard HTTP methods in a RESTful API. The client can perform GET, POST, PUT, and DELETE operations on the user resource.*
+
+### Further Reading
+
+For more information on RESTful API design, consider exploring the following resources:
+
+- [RESTful Web Services by Leonard Richardson and Sam Ruby](https://www.oreilly.com/library/view/restful-web-services/9780596529260/)
+- [REST API Tutorial](https://restfulapi.net/)
+- [Clojure Web Development with Ring](https://github.com/ring-clojure/ring)
+
+### Exercises
+
+1. **Create a New Resource**: Modify the Clojure code examples to add a new resource, such as a `product` resource. Define routes for handling GET, POST, PUT, and DELETE requests for the new resource.
+
+2. **Implement Error Handling**: Add error handling to the Clojure code examples. Use appropriate status codes and error messages to indicate errors.
+
+3. **Optimize for Performance**: Implement caching and pagination in the Clojure code examples to optimize the performance of the API.
+
+### Key Takeaways
+
+- RESTful APIs are designed to be simple, scalable, and easily maintainable.
+- Statelessness is a fundamental principle of REST that simplifies server design and improves scalability.
+- Resources are identified by URIs, and standard HTTP methods are used to perform operations on resources.
+- Appropriate status codes should be used to indicate the outcome of a request.
+- Designing clean, intuitive APIs is essential for providing a good developer experience.
+
+Now that we've explored the principles of RESTful API design, let's apply these concepts to build robust, scalable web services in Clojure.
+
+## Quiz: Test Your Knowledge on RESTful API Design Principles
 
 {{< quizdown >}}
 
-### What is the primary role of Ring in Clojure web development?
+### Which of the following is a key principle of RESTful API design?
 
-- [x] To provide a foundational layer for handling HTTP requests and responses.
-- [ ] To define routes in a web application.
-- [ ] To manage database connections.
-- [ ] To handle user authentication.
+- [x] Statelessness
+- [ ] Stateful communication
+- [ ] Client-side caching
+- [ ] Synchronous processing
 
-> **Explanation:** Ring provides the core functionality for handling HTTP requests and responses, serving as the foundational layer for Clojure web applications.
+> **Explanation:** Statelessness is a key principle of RESTful API design, meaning each request must contain all the information needed to process it.
 
-### How does Compojure simplify routing in Clojure applications?
+### What does URI stand for in the context of RESTful APIs?
 
-- [x] By using macros to define routes in a concise and expressive manner.
-- [ ] By providing a graphical interface for route management.
-- [ ] By automatically generating RESTful APIs.
-- [ ] By integrating with SQL databases.
+- [x] Uniform Resource Identifier
+- [ ] Universal Resource Identifier
+- [ ] Unified Resource Interface
+- [ ] Uniform Resource Interface
 
-> **Explanation:** Compojure uses macros to define routes, making the code both readable and expressive, which simplifies routing in Clojure applications.
+> **Explanation:** URI stands for Uniform Resource Identifier, which is used to identify resources in RESTful APIs.
 
-### What is a handler in the context of Ring?
+### Which HTTP method is typically used to create a new resource in a RESTful API?
 
-- [x] A Clojure function that takes a request map and returns a response map.
-- [ ] A middleware component that modifies requests.
-- [ ] A database query executor.
-- [ ] A Java interface implementation.
+- [ ] GET
+- [x] POST
+- [ ] PUT
+- [ ] DELETE
 
-> **Explanation:** In Ring, a handler is a Clojure function that processes HTTP requests by taking a request map and returning a response map.
+> **Explanation:** The POST method is typically used to create a new resource in a RESTful API.
 
-### What is the purpose of middleware in Ring?
+### What HTTP status code indicates that a new resource was successfully created?
 
-- [x] To wrap handlers and modify requests or responses.
-- [ ] To define database schemas.
-- [ ] To compile Clojure code to Java bytecode.
-- [ ] To manage user sessions.
+- [ ] 200 OK
+- [x] 201 Created
+- [ ] 204 No Content
+- [ ] 404 Not Found
 
-> **Explanation:** Middleware in Ring is used to wrap handlers and modify requests or responses, enabling functionalities like logging and authentication.
+> **Explanation:** The 201 Created status code indicates that a new resource was successfully created.
 
-### Which Compojure macro is used to define a GET route?
+### Which of the following is NOT a standard HTTP method used in RESTful APIs?
 
-- [x] `GET`
-- [ ] `POST`
-- [ ] `PUT`
-- [ ] `DELETE`
+- [ ] GET
+- [ ] POST
+- [ ] PUT
+- [x] FETCH
 
-> **Explanation:** The `GET` macro in Compojure is used to define a route that handles HTTP GET requests.
+> **Explanation:** FETCH is not a standard HTTP method used in RESTful APIs; the standard methods include GET, POST, PUT, and DELETE.
 
-### What is the benefit of using nested routes in Compojure?
+### What is the purpose of using hypermedia in RESTful APIs?
 
-- [x] To organize routes logically and improve code maintainability.
-- [ ] To increase the performance of the web server.
-- [ ] To automatically generate HTML documentation.
-- [ ] To simplify database migrations.
+- [x] To provide links to related resources
+- [ ] To cache responses
+- [ ] To encrypt data
+- [ ] To compress data
 
-> **Explanation:** Nested routes in Compojure help organize routes logically, making the code more maintainable and easier to understand.
+> **Explanation:** Hypermedia is used in RESTful APIs to provide links to related resources, allowing clients to discover and navigate the API more easily.
 
-### How can middleware be applied to routes in Compojure?
+### Which status code indicates that the requested resource was not found?
 
-- [x] By using the threading macro `->` to wrap routes with middleware functions.
-- [ ] By directly modifying the HTTP request headers.
-- [ ] By creating a new namespace for each middleware.
-- [ ] By using the `import` statement.
+- [ ] 200 OK
+- [ ] 201 Created
+- [ ] 204 No Content
+- [x] 404 Not Found
 
-> **Explanation:** Middleware can be applied to routes in Compojure by using the threading macro `->` to wrap routes with middleware functions.
+> **Explanation:** The 404 Not Found status code indicates that the requested resource was not found.
 
-### What is a common pitfall when using Ring and Compojure?
+### What is the benefit of using a layered system architecture in RESTful APIs?
 
-- [x] Ignoring middleware, leading to duplicated code and increased complexity.
-- [ ] Using too many namespaces for route definitions.
-- [ ] Overusing Java interop features.
-- [ ] Neglecting to use the `defn` macro for function definitions.
+- [x] It improves scalability and performance
+- [ ] It simplifies client-side caching
+- [ ] It reduces the need for error handling
+- [ ] It eliminates the need for authentication
 
-> **Explanation:** Ignoring middleware can lead to duplicated code and increased complexity, which is a common pitfall when using Ring and Compojure.
+> **Explanation:** A layered system architecture improves scalability and performance by allowing intermediaries such as proxies and gateways to be used.
 
-### Why is it important to test routes and middleware extensively?
+### Which of the following is an optional constraint in RESTful API design?
 
-- [x] To ensure reliability and maintainability of the web application.
-- [ ] To increase the execution speed of the server.
-- [ ] To automatically generate API documentation.
-- [ ] To simplify the deployment process.
+- [ ] Statelessness
+- [ ] Resource identification
+- [ ] Uniform interface
+- [x] Code on demand
 
-> **Explanation:** Testing routes and middleware extensively is important to ensure the reliability and maintainability of the web application.
+> **Explanation:** Code on demand is an optional constraint in RESTful API design, allowing servers to extend client functionality by transferring executable code.
 
-### True or False: Compojure can only be used with the Jetty server.
+### True or False: In a RESTful API, the server stores client context between requests.
 
 - [ ] True
 - [x] False
 
-> **Explanation:** False. Compojure can be used with any Ring-compatible server, not just Jetty.
+> **Explanation:** False. In a RESTful API, the server does not store client context between requests, adhering to the principle of statelessness.
 
 {{< /quizdown >}}

@@ -1,7 +1,5 @@
 ---
-title: "14.2 State Management"
+title: "14.2 JSON and XML Processing"
 type: docs
 nav_weight: 142000
-canonical: "https://clojureforjava.com/1/14/2"
-license: "© 2024 Tokenizer Inc. CC BY-NC-SA 4.0"
 ---

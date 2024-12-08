@@ -1,7 +1,5 @@
 ---
-title: "9.3 Looping Constructs"
+title: "9.3 Understanding Macro Expansion"
 type: docs
 nav_weight: 93000
-canonical: "https://clojureforjava.com/1/9/3"
-license: "© 2024 Tokenizer Inc. CC BY-NC-SA 4.0"
 ---

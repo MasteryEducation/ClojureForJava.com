@@ -1,7 +1,5 @@
 ---
-title: "8.4 Comparing Mutable and Immutable Approaches"
+title: "8.4 Coordinated State Changes with Refs and STM"
 type: docs
 nav_weight: 84000
-canonical: "https://clojureforjava.com/1/8/4"
-license: "© 2024 Tokenizer Inc. CC BY-NC-SA 4.0"
 ---

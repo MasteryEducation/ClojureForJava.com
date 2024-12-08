@@ -1,7 +1,5 @@
 ---
-title: "6.4 Maps"
+title: "6.4 Common Higher-Order Functions"
 type: docs
 nav_weight: 64000
-canonical: "https://clojureforjava.com/1/6/4"
-license: "© 2024 Tokenizer Inc. CC BY-NC-SA 4.0"
 ---

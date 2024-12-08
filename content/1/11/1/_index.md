@@ -1,7 +1,5 @@
 ---
-title: "11.1 Understanding Interoperability"
+title: "11.1 Identifying Suitable Java Code for Migration"
 type: docs
 nav_weight: 111000
-canonical: "https://clojureforjava.com/1/11/1"
-license: "© 2024 Tokenizer Inc. CC BY-NC-SA 4.0"
 ---

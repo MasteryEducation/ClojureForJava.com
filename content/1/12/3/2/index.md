@@ -1,296 +1,314 @@
 ---
-linkTitle: "12.3.2 Creating Executable JARs"
-title: "Creating Executable JARs with Clojure and Leiningen"
-description: "Learn how to create executable JARs in Clojure using Leiningen, enabling seamless deployment and execution of your Clojure applications."
-categories:
-- Clojure Development
-- Java Interoperability
-- Build Tools
-tags:
-- Clojure
-- Leiningen
-- JAR
-- Java
-- Build Automation
-date: 2024-10-25
-type: docs
-nav_weight: 1232000
 canonical: "https://clojureforjava.com/1/12/3/2"
+title: "Embracing Composition in Clojure: A Guide for Java Developers"
+description: "Explore how composition in Clojure enhances code modularity and flexibility, contrasting with Java's inheritance model."
+linkTitle: "12.3.2 Embracing Composition"
+tags:
+- "Clojure"
+- "Functional Programming"
+- "Composition"
+- "Java Interoperability"
+- "Higher-Order Functions"
+- "Code Modularity"
+- "Data Structures"
+- "Function Composition"
+date: 2024-11-25
+type: docs
+nav_weight: 123200
 license: "© 2024 Tokenizer Inc. CC BY-NC-SA 4.0"
 ---
 
-## 12.3.2 Creating Executable JARs with Clojure and Leiningen
+## 12.3.2 Embracing Composition
 
-Creating executable JARs is a crucial step in the process of deploying Clojure applications. This section will guide you through the process of packaging your Clojure applications into standalone JAR files using Leiningen, a popular build automation tool for Clojure. We will explore the benefits of using executable JARs, delve into the configuration and execution details, and provide practical examples to ensure you can confidently create and run your own JAR files.
+In the realm of software design, composition and inheritance are two fundamental paradigms for building complex systems. While Java developers are often familiar with inheritance as a means of code reuse and extension, Clojure, as a functional language, emphasizes composition. In this section, we will explore how composition is achieved in Clojure through function composition and data structure aggregation, and how these techniques can lead to more modular, flexible, and maintainable code.
 
-### Understanding Executable JARs
+### Understanding Composition in Clojure
 
-An executable JAR (Java ARchive) file is a package that contains all the necessary components of a Java application, including compiled classes, resources, and metadata. For Clojure applications, an executable JAR allows you to bundle your Clojure code, dependencies, and a manifest file that specifies the entry point of the application. This makes it easy to distribute and run your application on any machine with a compatible Java Runtime Environment (JRE).
+Composition in Clojure is about building complex behavior by combining simple functions and data structures. This approach aligns with the functional programming paradigm, where the focus is on functions and their composition rather than on objects and their hierarchies.
 
-#### Benefits of Executable JARs
+#### Function Composition
 
-1. **Portability**: An executable JAR is platform-independent, allowing your application to run on any system with a JRE.
-2. **Simplicity**: Users can execute your application with a simple command, without needing to manage dependencies or configurations.
-3. **Deployment**: Packaging your application as a JAR simplifies deployment processes, especially in cloud environments or containerized applications.
+Function composition is a powerful concept in Clojure that allows you to create new functions by combining existing ones. This is akin to mathematical function composition, where the output of one function becomes the input of another. In Clojure, function composition is facilitated by the `comp` function.
 
-### Setting Up Your Clojure Project
-
-Before creating an executable JAR, ensure your Clojure project is properly set up with Leiningen. If you haven't already, create a new Leiningen project using the following command:
-
-```shell
-lein new app your-app
-```
-
-This command generates a basic project structure with the necessary files, including `project.clj`, which is the configuration file for your Leiningen project.
-
-### Configuring `project.clj` for JAR Creation
-
-The `project.clj` file is where you define your project's configuration, including dependencies, source paths, and build instructions. To create an executable JAR, you need to specify the `:main` namespace, which contains the entry point of your application. This is typically the namespace with the `-main` function.
-
-Here's an example `project.clj` configuration:
+**Example: Basic Function Composition**
 
 ```clojure
-(defproject your-app "0.1.0-SNAPSHOT"
-  :description "A sample Clojure application"
-  :url "http://example.com/your-app"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.10.3"]]
-  :main ^:skip-aot your-app.core
-  :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+(defn square [x]
+  (* x x))
+
+(defn increment [x]
+  (+ x 1))
+
+(def square-and-increment
+  (comp increment square))
+
+(println (square-and-increment 3)) ; Output: 10
 ```
 
-#### Key Configuration Elements
+In this example, `square-and-increment` is a new function created by composing `square` and `increment`. The `comp` function takes multiple functions as arguments and returns a new function that applies them from right to left.
 
-- **`:main`**: Specifies the namespace containing the `-main` function. The `^:skip-aot` metadata indicates that the namespace should not be ahead-of-time (AOT) compiled unless building an uberjar.
-- **`:target-path`**: Defines the directory where compiled artifacts will be placed.
-- **`:profiles`**: Contains build profiles. The `:uberjar` profile is used to configure settings specific to building an executable JAR, such as AOT compilation.
+**Diagram: Function Composition Flow**
 
-### Building the Executable JAR
-
-With your `project.clj` configured, you can build the executable JAR using the `lein uberjar` command. This command compiles your Clojure code, resolves dependencies, and packages everything into a standalone JAR file.
-
-```shell
-lein uberjar
+```mermaid
+graph TD;
+    A[Input: 3] --> B[square]
+    B --> C[increment]
+    C --> D[Output: 10]
 ```
 
-Upon successful execution, Leiningen creates the JAR file in the `target` directory, typically named `your-app-standalone.jar`.
+*Caption: This diagram illustrates the flow of data through the composed functions `square` and `increment`.*
 
-### Running the Executable JAR
+#### Data Structure Aggregation
 
-To run your application from the JAR file, use the `java -jar` command followed by the path to the JAR file:
+In Clojure, data structure aggregation involves combining simple data structures to form more complex ones. This is often achieved using Clojure's rich set of immutable data structures, such as lists, vectors, maps, and sets.
 
-```shell
-java -jar target/your-app-standalone.jar
-```
-
-This command launches the Java Virtual Machine (JVM) and executes the `-main` function specified in your `:main` namespace.
-
-### Practical Example: Building a Simple Clojure Application
-
-Let's walk through a practical example of creating an executable JAR for a simple Clojure application. We'll build a basic "Hello, World!" application and package it into a JAR file.
-
-#### Step 1: Create the Project
-
-Create a new Leiningen project:
-
-```shell
-lein new app hello-world
-```
-
-#### Step 2: Implement the Application
-
-Navigate to the `src/hello_world/core.clj` file and implement the `-main` function:
+**Example: Aggregating Data Structures**
 
 ```clojure
-(ns hello-world.core
-  (:gen-class))
+(def person {:name "Alice" :age 30})
+(def address {:city "Wonderland" :zip "12345"})
 
-(defn -main
-  "A simple Hello, World! application."
-  [& args]
-  (println "Hello, World!"))
+(def person-with-address
+  (merge person address))
+
+(println person-with-address)
+; Output: {:name "Alice", :age 30, :city "Wonderland", :zip "12345"}
 ```
 
-#### Step 3: Configure `project.clj`
+Here, we use the `merge` function to combine two maps, `person` and `address`, into a single map, `person-with-address`. This demonstrates how aggregation can be used to build complex data structures from simpler ones.
 
-Edit the `project.clj` file to specify the `:main` namespace:
+### Composition vs. Inheritance
+
+In Java, inheritance is often used to achieve code reuse and polymorphism. However, it can lead to rigid class hierarchies and tight coupling between components. Composition, on the other hand, promotes flexibility and modularity by allowing you to assemble behavior from smaller, reusable components.
+
+**Java Example: Inheritance**
+
+```java
+class Animal {
+    void eat() {
+        System.out.println("Eating");
+    }
+}
+
+class Dog extends Animal {
+    void bark() {
+        System.out.println("Barking");
+    }
+}
+
+Dog dog = new Dog();
+dog.eat(); // Eating
+dog.bark(); // Barking
+```
+
+In this Java example, `Dog` inherits from `Animal`, gaining its `eat` method. While this works for simple hierarchies, it can become cumbersome as the hierarchy grows.
+
+**Clojure Example: Composition**
 
 ```clojure
-(defproject hello-world "0.1.0-SNAPSHOT"
-  :description "A simple Hello, World! application"
-  :url "http://example.com/hello-world"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.10.3"]]
-  :main ^:skip-aot hello-world.core
-  :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+(defn eat []
+  (println "Eating"))
+
+(defn bark []
+  (println "Barking"))
+
+(def dog-behavior
+  {:eat eat
+   :bark bark})
+
+((:eat dog-behavior)) ; Eating
+((:bark dog-behavior)) ; Barking
 ```
 
-#### Step 4: Build the JAR
+In Clojure, we achieve similar behavior using composition. We define functions `eat` and `bark`, and then compose them into a map `dog-behavior`. This approach is more flexible, as we can easily modify or extend behavior without altering a class hierarchy.
 
-Run the `lein uberjar` command to build the executable JAR:
+### Advantages of Composition in Clojure
 
-```shell
-lein uberjar
-```
+1. **Modularity**: Functions and data structures can be developed independently and composed as needed.
+2. **Reusability**: Reusable components can be combined in different ways to achieve new functionality.
+3. **Flexibility**: Changes to one component do not necessitate changes to others, reducing the risk of breaking existing code.
+4. **Simplicity**: Avoids the complexity of deep inheritance hierarchies, making the codebase easier to understand and maintain.
 
-#### Step 5: Execute the JAR
+### Practical Examples of Composition
 
-Run the application using the `java -jar` command:
+Let's explore some practical examples where composition can be applied to solve real-world problems.
 
-```shell
-java -jar target/hello-world-standalone.jar
-```
+#### Example 1: Data Transformation Pipeline
 
-You should see the output:
+Suppose we have a list of numbers and we want to apply a series of transformations: square each number, filter out even numbers, and then sum the result.
 
-```
-Hello, World!
-```
-
-### Advanced Configuration Options
-
-Leiningen offers various configuration options to customize the JAR creation process. Here are some advanced options you might consider:
-
-#### Customizing the Manifest File
-
-The manifest file in a JAR specifies metadata about the JAR and its contents. You can customize the manifest by adding a `:manifest` entry to your `project.clj`:
+**Clojure Code**
 
 ```clojure
-:manifest {"Main-Class" "hello_world.core"
-           "Implementation-Version" "0.1.0"}
+(defn square [x]
+  (* x x))
+
+(defn odd? [x]
+  (not (even? x)))
+
+(defn process-numbers [numbers]
+  (->> numbers
+       (map square)
+       (filter odd?)
+       (reduce +)))
+
+(println (process-numbers [1 2 3 4 5])) ; Output: 35
 ```
 
-#### Including Additional Resources
+In this example, we use the threading macro `->>` to compose a series of transformations on the `numbers` list. This approach is both concise and expressive, highlighting the power of composition in functional programming.
 
-If your application requires additional resources (e.g., configuration files, images), you can include them in the JAR by placing them in the `resources` directory of your project. Leiningen automatically includes this directory in the JAR.
+**Diagram: Data Transformation Pipeline**
 
-#### Excluding Unnecessary Files
+```mermaid
+graph LR;
+    A[Input: [1, 2, 3, 4, 5]] --> B[square]
+    B --> C[filter odd?]
+    C --> D[reduce +]
+    D --> E[Output: 35]
+```
 
-To exclude specific files or directories from the JAR, use the `:uberjar-exclusions` key in your `project.clj`:
+*Caption: This diagram shows the flow of data through the transformation pipeline.*
+
+#### Example 2: Building a Simple Web Server
+
+Consider a scenario where we want to build a simple web server that handles HTTP requests and responses. We can use composition to define middleware functions that process requests and responses.
+
+**Clojure Code**
 
 ```clojure
-:uberjar-exclusions [#"^log4j.properties$"]
+(defn log-request [handler]
+  (fn [request]
+    (println "Received request:" request)
+    (handler request)))
+
+(defn wrap-response [handler]
+  (fn [request]
+    (let [response (handler request)]
+      (assoc response :headers {"Content-Type" "text/plain"}))))
+
+(defn handle-request [request]
+  {:status 200 :body "Hello, World!"})
+
+(def app
+  (-> handle-request
+      (log-request)
+      (wrap-response)))
+
+(println (app {:uri "/"}))
+; Output: Received request: {:uri "/"}
+; {:status 200, :body "Hello, World!", :headers {"Content-Type" "text/plain"}}
 ```
 
-### Best Practices for Creating Executable JARs
+In this example, we define middleware functions `log-request` and `wrap-response`, and compose them with `handle-request` to form the `app` function. This demonstrates how composition can be used to build modular and extensible web applications.
 
-1. **Keep Dependencies Updated**: Regularly update your dependencies to ensure compatibility and security.
-2. **Use AOT Compilation Wisely**: While AOT compilation can improve startup time, it increases the JAR size. Use it judiciously.
-3. **Test Thoroughly**: Test your application in various environments to ensure it runs smoothly from the JAR.
-4. **Optimize for Performance**: Profile your application and optimize performance-critical sections before packaging.
+### Try It Yourself
 
-### Common Pitfalls and Troubleshooting
+Experiment with the examples provided by modifying the functions or adding new ones. For instance, try adding a new transformation to the data pipeline or a new middleware function to the web server. Observe how easily you can extend the functionality without altering the existing code.
 
-#### ClassNotFoundException
+### Further Reading
 
-If you encounter a `ClassNotFoundException`, ensure that all necessary dependencies are included in your `project.clj` and that the `:main` namespace is correctly specified.
+For more information on function composition and data structure aggregation in Clojure, consider exploring the following resources:
 
-#### Incorrect Entry Point
+- [Official Clojure Documentation](https://clojure.org/reference)
+- [ClojureDocs](https://clojuredocs.org/)
+- [Functional Programming in Clojure](https://github.com/functional-programming-in-clojure)
 
-If your application doesn't start as expected, verify that the `:main` namespace contains a valid `-main` function and that the namespace is correctly specified in `project.clj`.
+### Exercises
 
-#### Large JAR Size
+1. **Exercise 1**: Create a function that composes three simple arithmetic operations (addition, subtraction, multiplication) and applies them to a list of numbers.
+2. **Exercise 2**: Implement a middleware function that adds a custom header to HTTP responses and compose it with the existing web server example.
+3. **Exercise 3**: Refactor a Java class hierarchy into a set of Clojure functions and data structures using composition.
 
-If your JAR is excessively large, review your dependencies and exclude unnecessary files using `:uberjar-exclusions`.
+### Key Takeaways
 
-### Conclusion
+- **Composition over Inheritance**: Emphasizes building complex behavior by combining simple functions and data structures.
+- **Function Composition**: Allows for the creation of new functions by combining existing ones, promoting code reuse and modularity.
+- **Data Structure Aggregation**: Facilitates the construction of complex data structures from simpler ones, enhancing flexibility and maintainability.
+- **Advantages**: Composition leads to more modular, flexible, and maintainable code, avoiding the pitfalls of deep inheritance hierarchies.
 
-Creating executable JARs is an essential skill for deploying Clojure applications. By leveraging Leiningen's powerful build automation capabilities, you can efficiently package your applications into standalone JARs, simplifying distribution and execution. With the knowledge and examples provided in this section, you are well-equipped to create and manage executable JARs for your Clojure projects.
+By embracing composition in Clojure, you can create more robust and adaptable software systems. Now that we've explored how composition works in Clojure, let's apply these concepts to build more modular and maintainable applications.
 
-## Quiz Time!
+## Quiz: Understanding Composition in Clojure
 
 {{< quizdown >}}
 
-### What is the primary purpose of an executable JAR?
+### What is the primary advantage of using composition over inheritance in Clojure?
 
-- [x] To package a Java application into a single file for easy distribution and execution
-- [ ] To compile Java source code into bytecode
-- [ ] To provide a graphical user interface for Java applications
-- [ ] To manage Java application dependencies
+- [x] Modularity and flexibility
+- [ ] Faster execution
+- [ ] Easier debugging
+- [ ] More concise syntax
 
-> **Explanation:** An executable JAR packages all necessary components of a Java application, including compiled classes and resources, into a single file for easy distribution and execution.
+> **Explanation:** Composition promotes modularity and flexibility by allowing you to build complex behavior from simple, reusable components.
 
-### Which command is used to build an executable JAR with Leiningen?
+### How does the `comp` function in Clojure work?
 
-- [x] `lein uberjar`
-- [ ] `lein jar`
-- [ ] `lein build`
-- [ ] `lein package`
+- [x] It creates a new function by composing multiple functions from right to left.
+- [ ] It creates a new function by composing multiple functions from left to right.
+- [ ] It combines two functions into a single function.
+- [ ] It applies a function to a list of arguments.
 
-> **Explanation:** The `lein uberjar` command is used to build an executable JAR in Leiningen, packaging the application and its dependencies.
+> **Explanation:** The `comp` function in Clojure creates a new function by composing multiple functions from right to left, where the output of one function becomes the input of the next.
 
-### What is the role of the `:main` key in `project.clj`?
+### In the provided Clojure example, what does the `merge` function do?
 
-- [x] It specifies the namespace containing the entry point of the application.
-- [ ] It defines the version of the Clojure language to use.
-- [ ] It lists the dependencies required by the project.
-- [ ] It sets the target directory for compiled artifacts.
+- [x] Combines two maps into a single map.
+- [ ] Combines two lists into a single list.
+- [ ] Combines two vectors into a single vector.
+- [ ] Combines two sets into a single set.
 
-> **Explanation:** The `:main` key specifies the namespace containing the `-main` function, which serves as the entry point for the application.
+> **Explanation:** The `merge` function in Clojure combines two maps into a single map, aggregating their key-value pairs.
 
-### How do you run an executable JAR from the command line?
+### What is the purpose of middleware functions in the web server example?
 
-- [x] `java -jar target/your-app-standalone.jar`
-- [ ] `lein run target/your-app-standalone.jar`
-- [ ] `java -cp target/your-app-standalone.jar`
-- [ ] `lein exec target/your-app-standalone.jar`
+- [x] To process requests and responses in a modular way.
+- [ ] To handle database connections.
+- [ ] To manage user authentication.
+- [ ] To optimize server performance.
 
-> **Explanation:** The `java -jar` command is used to run an executable JAR file from the command line.
+> **Explanation:** Middleware functions in the web server example are used to process requests and responses in a modular way, allowing for easy extension and modification of server behavior.
 
-### What is the purpose of AOT compilation in Clojure?
+### Which of the following is a benefit of function composition in Clojure?
 
-- [x] To improve startup time by compiling Clojure code to Java bytecode ahead of time
-- [ ] To reduce the size of the JAR file
-- [ ] To enable dynamic typing in Clojure
-- [ ] To provide a graphical user interface for Clojure applications
+- [x] Code reuse
+- [x] Modularity
+- [ ] Faster execution
+- [ ] Less memory usage
 
-> **Explanation:** AOT (Ahead-of-Time) compilation improves startup time by compiling Clojure code to Java bytecode before runtime.
+> **Explanation:** Function composition in Clojure promotes code reuse and modularity by allowing you to build complex behavior from simple, reusable functions.
 
-### Which directory should additional resources be placed in to be included in the JAR?
+### What does the threading macro `->>` do in Clojure?
 
-- [x] `resources`
-- [ ] `src`
-- [ ] `lib`
-- [ ] `bin`
+- [x] It threads a value through a series of functions from left to right.
+- [ ] It threads a value through a series of functions from right to left.
+- [ ] It applies a function to a list of arguments.
+- [ ] It creates a new function by composing multiple functions.
 
-> **Explanation:** Additional resources should be placed in the `resources` directory, which Leiningen automatically includes in the JAR.
+> **Explanation:** The threading macro `->>` in Clojure threads a value through a series of functions from left to right, making the code more readable and expressive.
 
-### How can you exclude specific files from the JAR?
+### How can you extend the functionality of the web server example?
 
-- [x] Use the `:uberjar-exclusions` key in `project.clj`
-- [ ] Use the `:exclude` key in `project.clj`
-- [ ] Use the `:ignore` key in `project.clj`
-- [ ] Use the `:omit` key in `project.clj`
+- [x] By adding new middleware functions.
+- [ ] By modifying the existing functions.
+- [x] By composing additional functions with the existing ones.
+- [ ] By changing the server configuration.
 
-> **Explanation:** The `:uberjar-exclusions` key in `project.clj` allows you to specify files or directories to exclude from the JAR.
+> **Explanation:** You can extend the functionality of the web server example by adding new middleware functions or composing additional functions with the existing ones, without altering the existing code.
 
-### What should you do if you encounter a `ClassNotFoundException`?
+### What is the result of the `process-numbers` function when applied to the list `[1, 2, 3, 4, 5]`?
 
-- [x] Ensure all necessary dependencies are included in `project.clj` and the `:main` namespace is correctly specified.
-- [ ] Reinstall Leiningen and try again.
-- [ ] Increase the JVM heap size.
-- [ ] Use a different version of Java.
+- [x] 35
+- [ ] 15
+- [ ] 25
+- [ ] 45
 
-> **Explanation:** A `ClassNotFoundException` often indicates missing dependencies or an incorrectly specified `:main` namespace.
+> **Explanation:** The `process-numbers` function squares each number, filters out even numbers, and then sums the result, yielding 35 for the list `[1, 2, 3, 4, 5]`.
 
-### Why is it important to test your application in various environments?
-
-- [x] To ensure it runs smoothly from the JAR across different systems
-- [ ] To reduce the size of the JAR file
-- [ ] To improve the graphical user interface
-- [ ] To enable dynamic typing in Clojure
-
-> **Explanation:** Testing in various environments ensures that your application runs smoothly from the JAR across different systems and configurations.
-
-### True or False: An executable JAR is platform-independent.
+### True or False: Composition in Clojure can lead to more maintainable code compared to inheritance in Java.
 
 - [x] True
 - [ ] False
 
-> **Explanation:** An executable JAR is platform-independent, allowing it to run on any system with a compatible Java Runtime Environment (JRE).
+> **Explanation:** True. Composition in Clojure can lead to more maintainable code by promoting modularity and flexibility, avoiding the complexity of deep inheritance hierarchies.
 
 {{< /quizdown >}}
