@@ -152,7 +152,7 @@ For more information on using the REPL and integrating it into your workflow, ch
 2. **Create a new Clojure project** and add a dependency. Start a project-connected REPL and use the dependency in your code.
 3. **Experiment with REPL features in different IDEs** to find the setup that works best for you.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

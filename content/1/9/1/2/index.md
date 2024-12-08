@@ -165,7 +165,7 @@ For more in-depth information on macros and their capabilities, consider explori
 
 By understanding and leveraging the power of macros, you can write more expressive, concise, and maintainable Clojure code. Embrace this capability to transform your approach to problem-solving in Clojure.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

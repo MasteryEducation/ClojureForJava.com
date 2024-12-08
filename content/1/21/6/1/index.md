@@ -167,7 +167,7 @@ To reinforce your understanding of open source licenses, try the following exerc
 
 By understanding open source licenses, you can contribute to Clojure projects with confidence, knowing your rights and responsibilities. Now, let's explore how these concepts apply to real-world scenarios and enhance your contributions to the open source community.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

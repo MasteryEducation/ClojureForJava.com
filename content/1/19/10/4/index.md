@@ -224,7 +224,7 @@ By focusing on these user experience enhancements, you can create Clojure applic
 - [Google Translate API Documentation](https://cloud.google.com/translate/docs)
 - [Bootstrap Documentation](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

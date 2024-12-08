@@ -144,7 +144,7 @@ graph TD;
 2. **Refactor a Codebase**: Use IntelliJ's refactoring tools to improve the structure of an existing Clojure codebase.
 3. **Run and Debug Tests**: Write and run unit tests for a simple Clojure function using Cursive's test runner.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

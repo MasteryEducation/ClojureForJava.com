@@ -177,7 +177,7 @@ For more information on team collaboration and project management, consider the 
 - [ClojureDocs](https://clojuredocs.org/)
 - [Atlassian's Guide to Agile](https://www.atlassian.com/agile)
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

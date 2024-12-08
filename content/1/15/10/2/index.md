@@ -153,7 +153,7 @@ Notice how the Clojure test is more concise and focuses directly on the assertio
 
 By following these best practices, you'll be well-equipped to write maintainable tests in Clojure, ensuring your code is robust, reliable, and easy to update.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

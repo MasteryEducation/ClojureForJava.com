@@ -234,7 +234,7 @@ For more information on TDD and Clojure testing, consider the following resource
 
 Now that we've explored TDD in Clojure, let's apply these principles to enhance your development workflow and build robust, reliable applications.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

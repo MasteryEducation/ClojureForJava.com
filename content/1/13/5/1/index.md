@@ -213,7 +213,7 @@ By mastering middleware concepts, you'll be well-equipped to build robust and ma
 - [ClojureDocs Middleware Examples](https://clojuredocs.org)
 - [Official Clojure Documentation](https://clojure.org)
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

@@ -206,7 +206,7 @@ Clojure offers a range of features that enhance functional programming, includin
 
 4. **Concurrency Primitives**: Implement a simple counter using atoms in Clojure. Extend this example to use refs for managing multiple counters with coordinated updates.
 
-### SEO optimized quiz title
+### Quiz Time!
 
 {{< quizdown >}}
 

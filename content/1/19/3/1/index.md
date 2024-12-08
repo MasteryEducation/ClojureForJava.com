@@ -249,7 +249,7 @@ Experiment with the following:
 2. Build a Pedestal service with multiple routes and interceptors for logging and authentication.
 3. Compare the performance of a simple Ring server and a Pedestal server under load.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

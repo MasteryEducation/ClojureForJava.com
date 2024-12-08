@@ -162,7 +162,7 @@ Now that we've explored strategies for isolating side effects in Clojure, let's 
 - "Pure Functions"
 - "Effect Systems"
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

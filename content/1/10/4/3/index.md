@@ -172,7 +172,7 @@ For more information on exception handling in Clojure and Java, consider the fol
 - [Java Exception Handling Guide](https://docs.oracle.com/javase/tutorial/essential/exceptions/)
 - [ClojureDocs: Exception Handling](https://clojuredocs.org/)
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

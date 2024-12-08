@@ -210,7 +210,7 @@ Evaluating your Java codebase is a crucial step in the migration process. By foc
 4. **Modularization Exercise**: Take a large Java class and break it down into smaller, modular functions in Clojure. Write unit tests for each function.
 5. **Concurrency Challenge**: Identify a Java method that uses Java's concurrency mechanisms and rewrite it in Clojure using `pmap` or other concurrency primitives.
 
-### SEO optimized quiz title
+### Quiz Time!
 
 {{< quizdown >}}
 

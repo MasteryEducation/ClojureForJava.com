@@ -172,7 +172,7 @@ sequenceDiagram
 
 By mastering these tools and techniques, you'll be well-equipped to optimize the performance of your Clojure applications and make informed decisions about code design and architecture.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

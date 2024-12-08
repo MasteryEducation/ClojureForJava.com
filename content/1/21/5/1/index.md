@@ -177,7 +177,7 @@ By following these guidelines, you'll be well-equipped to contribute to open sou
 - [ClojureDocs](https://clojuredocs.org/)
 - [cljfmt GitHub Repository](https://github.com/weavejester/cljfmt)
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

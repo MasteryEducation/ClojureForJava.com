@@ -190,7 +190,7 @@ To deepen your understanding of macros, try modifying the examples provided:
 
 By understanding and applying these concepts, you can leverage the full power of Clojure macros to write more expressive and efficient code. Now that we've explored appropriate use cases for macros, let's continue our journey into the world of metaprogramming and discover how to harness these capabilities in your Clojure projects.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

@@ -185,7 +185,7 @@ To reinforce your learning, try the following exercises:
 
 By practicing these exercises, you'll gain confidence in using Clojure's interop features to work with Java objects effectively.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

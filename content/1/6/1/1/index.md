@@ -161,7 +161,7 @@ For more information on functions as first-class citizens and higher-order funct
 
 Now that we've explored the definition and significance of functions as first-class citizens in Clojure, let's delve into how these concepts enable the creation of higher-order functions in the next section.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

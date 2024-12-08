@@ -188,7 +188,7 @@ For more information on optimizing Clojure code, consider exploring the followin
 
 By understanding and applying these optimization techniques, you'll be well-equipped to write performant Clojure code that leverages the strengths of the language and the JVM.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

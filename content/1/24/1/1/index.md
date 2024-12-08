@@ -165,7 +165,7 @@ To reinforce your learning, try the following exercises:
 2. **Exercise 2:** Create a Clojure program that reads a list of names and returns a list of names that start with a specific letter. Implement a similar program in Java and compare the code.
 3. **Exercise 3:** Write a Clojure function that takes a list of numbers and returns the sum of all even numbers. Use higher-order functions to achieve this.
 
-### SEO optimized quiz title
+### Quiz Time!
 
 {{< quizdown >}}
 

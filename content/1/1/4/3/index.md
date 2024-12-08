@@ -197,7 +197,7 @@ Let's compare Clojure's concurrency model with Java's traditional approach:
 
 By understanding and leveraging Clojure's concurrency features, we can write more efficient and reliable concurrent programs. Now that we've explored how Clojure simplifies concurrency, let's apply these concepts to build scalable and responsive applications.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

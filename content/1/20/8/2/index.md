@@ -153,7 +153,7 @@ For more information on the technologies and concepts discussed, consider explor
 
 By understanding these architectural decisions, you can effectively leverage Clojure to build robust microservices, taking full advantage of its functional programming paradigm.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

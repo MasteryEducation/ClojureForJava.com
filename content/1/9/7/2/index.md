@@ -173,7 +173,7 @@ For more information on macros and reflection, consider exploring the following 
 
 Now that we've explored the differences between macros and reflection, let's apply these concepts to enhance your Clojure applications with efficient and secure code transformations.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

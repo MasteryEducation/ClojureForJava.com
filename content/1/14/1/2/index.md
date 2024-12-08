@@ -173,7 +173,7 @@ By mastering these concepts, you'll be well-equipped to build robust and efficie
 
 Now that we've explored how to build data pipelines in Clojure, let's apply these concepts to transform and analyze data effectively in your applications.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

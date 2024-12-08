@@ -154,7 +154,7 @@ For more information on `core.async` and its performance characteristics, consid
 - [ClojureDocs - core.async](https://clojuredocs.org/clojure.core.async)
 - [GitHub - core.async](https://github.com/clojure/core.async)
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

@@ -167,7 +167,7 @@ flowchart TD
 
 By following these steps and practicing with real projects, you'll be well-prepared to contribute effectively to open source Clojure projects. Now, let's dive into the next section, where we'll explore writing effective contributions.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

@@ -201,7 +201,7 @@ Migrating a Java application to Clojure can lead to significant performance impr
 
 Now that we've explored the outcomes and lessons learned from migrating a Java application to Clojure, let's apply these insights to your own projects and continue to build upon your functional programming skills.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

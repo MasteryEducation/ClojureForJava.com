@@ -175,7 +175,7 @@ For more information on `def` and related concepts, check out the following reso
 
 Now that we've explored how to use `def` for definitions in Clojure, let's continue our journey by examining how to define functions using `defn` in the next section.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

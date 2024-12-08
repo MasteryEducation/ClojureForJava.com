@@ -147,7 +147,7 @@ For further reading and exploration of reactive programming concepts, consider t
 - [ReactiveX - An API for Asynchronous Programming with Observable Streams](http://reactivex.io/)
 - [Clojure's core.async Library](https://clojure.github.io/core.async/)
 
-### SEO Optimized Quiz Title
+### Quiz Time!
 
 ## Test Your Knowledge on Reactive Programming Concepts
 

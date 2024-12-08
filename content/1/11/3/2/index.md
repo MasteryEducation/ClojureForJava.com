@@ -185,7 +185,7 @@ Setting up a Clojure environment involves installing the necessary tools, choosi
 3. Configure a GitHub Actions workflow to build and test a Clojure project.
 4. Compare the performance of a simple Clojure application using both Leiningen and tools.deps.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

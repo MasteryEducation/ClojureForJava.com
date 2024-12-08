@@ -256,7 +256,7 @@ Integrating Clojure with existing systems involves leveraging its interoperabili
 
 Now that we've explored how to integrate Clojure with existing systems, let's apply these concepts to build robust and scalable applications that leverage the strengths of both Clojure and Java.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

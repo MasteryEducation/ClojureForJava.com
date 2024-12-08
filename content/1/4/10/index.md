@@ -156,7 +156,7 @@ Experiment with the Clojure REPL by modifying the `greet` function to include a 
 
 By embracing the REPL, you can enhance your productivity and creativity as a developer, leveraging the power of Clojure's interactive programming environment.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

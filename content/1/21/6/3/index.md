@@ -155,7 +155,7 @@ To reinforce your understanding of respecting intellectual property, try the fol
 
 By respecting intellectual property rights, you contribute to a healthy and sustainable open source community. Now that we've explored the importance of respecting intellectual property, let's apply these principles to your contributions in open source Clojure projects.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

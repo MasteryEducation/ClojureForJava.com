@@ -206,7 +206,7 @@ Keeping up with updates in Clojure, libraries, and the JVM is essential for main
 
 By adopting these practices, you'll be well-equipped to maintain cutting-edge applications and leverage the full potential of Clojure and the JVM.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

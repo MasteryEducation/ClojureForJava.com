@@ -158,7 +158,7 @@ For more information on profiling and performance optimization in Clojure, consi
 
 Now that we've explored the importance of profiling, let's apply these concepts to optimize your Clojure applications effectively.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

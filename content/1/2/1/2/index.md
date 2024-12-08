@@ -200,7 +200,7 @@ To solidify your understanding, try the following:
 
 By following these steps, you'll have a robust Java environment ready for Clojure development. Now that you've set up Java, you're one step closer to mastering Clojure's functional programming paradigm.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

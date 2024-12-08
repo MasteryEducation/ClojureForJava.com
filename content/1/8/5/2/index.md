@@ -156,7 +156,7 @@ By mastering agent state retrieval in Clojure, you can build robust and efficien
 - [ClojureDocs: Agent Examples](https://clojuredocs.org/clojure.core/agent)
 - [Java Concurrency in Practice](https://www.oreilly.com/library/view/java-concurrency-in/0321349601/)
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

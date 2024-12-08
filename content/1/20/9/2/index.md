@@ -189,7 +189,7 @@ flowchart TD
 
 By understanding these performance considerations, we can make informed decisions about when and how to use Clojure for building efficient microservices. Now that we've explored the performance characteristics of Clojure and Java microservices, let's apply these insights to optimize your applications.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

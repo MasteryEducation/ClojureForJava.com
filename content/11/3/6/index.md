@@ -131,7 +131,7 @@ In this section, we've explored the principles of Software Transactional Memory 
 - [ClojureDocs: STM Examples](https://clojuredocs.org/clojure.core/dosync)
 - [GitHub: Clojure STM Examples](https://github.com/clojure/clojure)
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

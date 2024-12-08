@@ -142,7 +142,7 @@ graph TD;
 
 Now that we've defined the project scope for our full-stack application, let's move on to designing the architecture and setting up the project infrastructure.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

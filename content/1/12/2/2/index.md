@@ -144,7 +144,7 @@ For further reading on higher-order functions and functional programming in Cloj
 
 Now that we've explored the functional implementation of the Strategy Pattern in Clojure, let's apply these concepts to build more dynamic and flexible applications.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

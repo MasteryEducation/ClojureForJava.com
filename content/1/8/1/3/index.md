@@ -213,7 +213,7 @@ By understanding the limitations of Java's traditional concurrency mechanisms, w
 - [Official Java Documentation on Concurrency](https://docs.oracle.com/javase/tutorial/essential/concurrency/)
 - [Clojure's Approach to Concurrency](https://clojure.org/reference/atoms)
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

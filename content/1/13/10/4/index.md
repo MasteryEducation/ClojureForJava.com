@@ -216,7 +216,7 @@ By understanding and addressing these challenges, we can harness the full potent
 - [ClojureDocs](https://clojuredocs.org/)
 - [Java Interoperability in Clojure](https://clojure.org/reference/java_interop)
 
-### SEO optimized quiz title
+### Quiz Time!
 
 {{< quizdown >}}
 

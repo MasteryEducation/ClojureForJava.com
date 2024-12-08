@@ -214,7 +214,7 @@ Deploying Clojure web applications offers a range of options, each suited to dif
 - [Heroku Clojure Support](https://devcenter.heroku.com/articles/clojure-support)
 - [AWS Elastic Beanstalk Documentation](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html)
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

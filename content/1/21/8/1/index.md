@@ -116,7 +116,7 @@ As you embark on your own open source journey, remember that each contribution, 
 
 ---
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

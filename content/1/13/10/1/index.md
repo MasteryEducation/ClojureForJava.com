@@ -228,7 +228,7 @@ Through this case study, we've explored the process of developing a web service 
 
 By following this guide, you'll gain a deeper understanding of how to develop web services using Clojure, leveraging its unique features to create efficient and maintainable applications.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

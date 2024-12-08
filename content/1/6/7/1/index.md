@@ -151,7 +151,7 @@ By understanding the limitations of Java before version 8 and exploring the work
 - [ClojureDocs](https://clojuredocs.org/)
 - [Java 8 Features](https://docs.oracle.com/javase/8/docs/)
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 

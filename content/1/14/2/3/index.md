@@ -189,7 +189,7 @@ To deepen your understanding, try modifying the code examples provided. For inst
 
 By mastering these data formats and libraries, you'll be well-equipped to handle complex data processing tasks in your Clojure applications. Now that we've explored how to work with YAML and EDN, let's apply these concepts to manage data effectively in your projects.
 
-## SEO optimized quiz title
+## Quiz Time!
 
 {{< quizdown >}}
 
