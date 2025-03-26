@@ -140,7 +140,7 @@ Below is a diagram illustrating the flow of data through the composed function `
 graph TD;
     A[Input: 3] --> B[Increment: inc]
     B --> C[Output: 4]
-    C --> D[Double: (* 2 %)]
+    C --> D["Double: (* 2 %)"]
     D --> E[Output: 8]
 ```
 
