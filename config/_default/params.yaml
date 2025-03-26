@@ -1,7 +1,7 @@
 title_separator: '|'
-title_sections: true # when false, remove the sections from the title.
-title_sections_depth: 1 # the depth of sections on the title.
-title_sections_depth_dir: start # when start, the depth is counting from the root sections.
+title_sections: false # when false, remove the sections from the title.
+#title_sections_depth: 1 # the depth of sections on the title.
+#title_sections_depth_dir: start # when start, the depth is counting from the root sections.
 
 description: >
  Empower your Java skills with ClojureForJava.com. 

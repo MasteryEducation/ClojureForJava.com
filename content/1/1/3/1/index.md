@@ -125,8 +125,8 @@ To better understand how immutability and structural sharing work, let's visuali
 
 ```mermaid
 graph TD;
-    A[Original Vector: [1, 2, 3]] --> B[New Vector: [1, 2, 3, 4]];
-    B --> C[Shared Elements: [1, 2, 3]];
+    A["Original Vector: [1, 2, 3]"] --> B["New Vector: [1, 2, 3, 4]"];
+    B --> C["Shared Elements: [1, 2, 3]"];
     B --> D[New Element: 4];
 ```
 
@@ -147,13 +147,39 @@ cart.add("Banana");
 cart.remove("Apple");
 ```
 
-In Clojure, you can achieve the same functionality with immutable data structures:
+In Clojure, you can achieve the same functionality with immutable data structures. Below are two approaches depending on your needs:
 
+1) Using a Vector (order preserved, duplicates allowed):
 ```clojure
+;; Start with an empty vector
 (def cart [])
-(def updated-cart (conj cart "Apple"))
-(def final-cart (disj updated-cart "Apple"))
+
+;; conj appends items to the vector
+(def updated-cart (conj cart "Apple" "Banana"))
+;; => ["Apple" "Banana"]
+
+;; To remove an item by value, use 'remove' and re-wrap into a vector
+(def final-cart (vec (remove #(= % "Apple") updated-cart)))
+;; => ["Banana"]
 ```
+
+2) Using a Set (unique items, no ordering):
+```clojure
+;; Start with an empty set
+(def cart #{})
+
+;; conj adds items to the set
+(def updated-cart (conj cart "Apple" "Banana"))
+;; => #{"Apple" "Banana"}
+
+;; disj removes items from a set
+(def final-cart (disj updated-cart "Apple"))
+;; => #{"Banana"}
+```
+--------------------------------------------------------------------------------
+
+In the vector-based approach, remove returns a lazy sequence, so wrapping it with vec is a convenient way to keep the result as a vector. If you prefer unique items and are okay without a strict order, a set plus conj/disj is the simplest.
+
 
 **Try It Yourself**: Modify the Clojure example to add more items to the cart and observe how the original `cart` remains unchanged.
 
